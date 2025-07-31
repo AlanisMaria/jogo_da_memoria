@@ -1,5 +1,3 @@
-import random
-
 #Classe que representa uma carta do jogo
 class Carta:
    def _init_(self, caractere):
