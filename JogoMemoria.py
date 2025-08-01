@@ -1,16 +1,36 @@
 import random
+import time
 
+#Classe que representa uma carta do jogo
+class Carta:
+   def __init__(self, caractere):
+      self.caractere = caractere # caractere que identifica a carta
+      self.virada = False #estado da carta : virada ou escondida 
+
+      def virar (self):
+         #método para virar a carta ( mostrar o caractere)
+         self.virada = True
+
+         def esconder(self):
+            #metodo para esconder a carta (mostrar 'x')
+            self.virada = False
+
+            def mostrar(self):
+               #retorna o caractere se a carta virada, caso contrário, mostra 'x'
+               return self.caractere if self.virada else "x"
+            
+            
 #classe que gerencia o jogo da memória
 class JogoDaMemoria:
-    def _init_(self):
+    def __init__(self):
 #lista de caracteres especiais, cada um duplicado para formar pares
         caracteres = ['@', '#', '$', '%', '&0', '*', '!', '?']
         #cria as cartas, duas de cada caractere
-        cartas = [cartas(c) for c in caracteres for _ in range (2)]
+        cartas = [Carta(c) for c in caracteres for _ in range (2)]
 #embaralha as cartas para distribuir aleatoriamente
         random.shuffle(cartas)
 #cria uma grade 4x4 com as cartas embaralhadas
-        self.tabuleiro = [cartas[i*4:(i=1)*4] for i in range(4)]
+        self.tabuleiro = [cartas[i*4:(i+1)*4] for i in range(4)]
         self.pontuacao = 0 #pontuação do jogador (quantos pares encontrou)
         self.tentativas = 2 #número de tentativas disponiveis
         self.cartas_viradas = [] #lista para guardar as cartas viradas atualmente
@@ -20,7 +40,7 @@ class JogoDaMemoria:
         print("tabuleiro:")
         for i, linha in enumerate(self.tabuleiro):
              #converte cada carta da linha para sau representação visivel
-             linha_str = ' '.join([c.mostrar() from c in linha])
+             linha_str = '  '.join([c.mostrar() for c in linha])
              print(f"{i+1} {linha_str}")
         print()
 
@@ -39,7 +59,7 @@ class JogoDaMemoria:
                         carta = self.tabuleiro[linha] [coluna]
                         #Verifica se carta já está virada
                         if carta.virada:
-                            print("Carta jã virada. tente outra.")
+                            print("Carta já virada. tente outra.")
                             continue
                         #vira a carta e adiciona á lista de cartas viradas
                         carta.virar()
@@ -51,4 +71,20 @@ class JogoDaMemoria:
                 #quando duas cartas estiverem viradas, verifica se formam um par
                     if len (self.cartas_viradas) == 2:
                         self.exibir_tabuleiro() #mostra o tabuleiro com duas cartas viradas
-                        c1,c2 = self.cartas_
+                        c1,c2 = self.cartas_viradas #paga as duas cartas da lista de cartas viradas para compará-las
+
+                        #verifica se o caracteres das duas cartas são iguais
+                        if c1.caractere == c2.caractere:
+                            print("Voce encontrou um par!")
+                            self.pontuacao += 1 #Aumenta a pontuação
+                        else:
+                            print("Não é um par. Memorize as posições!")
+                            #pausa o jogo por 2 segundos para o jogador memorizar as cartas
+                            time.sleep(2)
+                            #esconde as cartas novamente, pois não eram um par
+                            c1.esconder()
+                            c2.esconder()
+                        #limpa a lista de cartas da rodada para preparar para a proxima rodada
+                            
+                    #mensagem final quando o loop termina
+                    print("\nParabén! Voce encontrou todos os pares e completou o jogo!")

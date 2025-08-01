@@ -1,6 +1,6 @@
 #Classe que representa uma carta do jogo
 class Carta:
-   def _init_(self, caractere):
+   def __init__(self, caractere):
       self.caractere = caractere # caractere que identifica a carta
       self.virada = False #estado da carta : virada ou escondida 
 
