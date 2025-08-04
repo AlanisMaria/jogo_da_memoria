@@ -14,6 +14,6 @@ class Carta:
 
    def mostrar(self):
       #retorna o caractere se a carta virada, caso contrário, mostra 'x'
-      return self.caractere if self.virada else "x"
+      return self.caractere if self.virada else "🂱"
             
             
