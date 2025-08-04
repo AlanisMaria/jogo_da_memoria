@@ -1,24 +1,7 @@
 import random
+from carta import Carta
 import time
 
-#Classe que representa uma carta do jogo
-class Carta:
-   def __init__(self, caractere):
-      self.caractere = caractere # caractere que identifica a carta
-      self.virada = False #estado da carta : virada ou escondida 
-
-      def virar (self):
-         #método para virar a carta ( mostrar o caractere)
-         self.virada = True
-
-         def esconder(self):
-            #metodo para esconder a carta (mostrar 'x')
-            self.virada = False
-
-            def mostrar(self):
-               #retorna o caractere se a carta virada, caso contrário, mostra 'x'
-               return self.caractere if self.virada else "x"
-            
             
 #classe que gerencia o jogo da memória
 class JogoDaMemoria:
@@ -44,47 +27,47 @@ class JogoDaMemoria:
              print(f"{i+1} {linha_str}")
         print()
 
-        def jogar(self):
-            #método principal que controla o fluxo do jogo
-            while self.pontuacao < 8:
-                self.exibir_tabuleiro() #mostra o tabuleiro a cada rodada
-                print(f"Tentativas restantes: {self.tentativas}")
-                # verifica se o jogador já virou duas cartas
-                if len(self.carta_virada) < 2:
-                    try:
-                        #solicita ao jogador que escolhe uma linha e coluna
-                        linha = int(input("Escolhha a linha (1-4): ")) - 1
-                        coluna = int(input("Escolha a coluna (1-4): ")) - 1
-                        #Acessa a carta na posição escolhida
-                        carta = self.tabuleiro[linha] [coluna]
-                        #Verifica se carta já está virada
-                        if carta.virada:
-                            print("Carta já virada. tente outra.")
-                            continue
-                        #vira a carta e adiciona á lista de cartas viradas
-                        carta.virar()
-                        self.cartas_viradas.append(carta)
-                    except (IndexError, ValueError):
-                        #trata entradas inválidas
-                        print("entrada inválida. tente novamente.")
+    def jogar(self):
+        #método principal que controla o fluxo do jogo
+        while self.pontuacao < 8:
+            self.exibir_tabuleiro() #mostra o tabuleiro a cada rodada
+            print(f"Tentativas restantes: {self.tentativas}")
+            # verifica se o jogador já virou duas cartas
+            if len(self.cartas_viradas) < 2:
+                try:
+                    #solicita ao jogador que escolhe uma linha e coluna
+                    linha = int(input("Escolha a linha (1-4): ")) - 1
+                    coluna = int(input("Escolha a coluna (1-4): ")) - 1
+                    #Acessa a carta na posição escolhida
+                    carta = self.tabuleiro[linha] [coluna]
+                    #Verifica se carta já está virada
+                    if carta.virada:
+                        print("Carta já virada. tente outra.")
                         continue
-                #quando duas cartas estiverem viradas, verifica se formam um par
-                    if len (self.cartas_viradas) == 2:
-                        self.exibir_tabuleiro() #mostra o tabuleiro com duas cartas viradas
-                        c1,c2 = self.cartas_viradas #paga as duas cartas da lista de cartas viradas para compará-las
+                    #vira a carta e adiciona á lista de cartas viradas
+                    carta.virar()
+                    self.cartas_viradas.append(carta)
+                except (IndexError, ValueError):
+                    #trata entradas inválidas
+                    print("entrada inválida. tente novamente.")
+                    continue
+            #quando duas cartas estiverem viradas, verifica se formam um par
+            if len (self.cartas_viradas) == 2:
+                self.exibir_tabuleiro() #mostra o tabuleiro com duas cartas viradas
+                c1,c2 = self.cartas_viradas #paga as duas cartas da lista de cartas viradas para compará-las
 
-                        #verifica se o caracteres das duas cartas são iguais
-                        if c1.caractere == c2.caractere:
-                            print("Voce encontrou um par!")
-                            self.pontuacao += 1 #Aumenta a pontuação
-                        else:
-                            print("Não é um par. Memorize as posições!")
-                            #pausa o jogo por 2 segundos para o jogador memorizar as cartas
-                            time.sleep(2)
-                            #esconde as cartas novamente, pois não eram um par
-                            c1.esconder()
-                            c2.esconder()
-                        #limpa a lista de cartas da rodada para preparar para a proxima rodada
+                #verifica se o caracteres das duas cartas são iguais
+                if c1.caractere == c2.caractere:
+                    print("Voce encontrou um par!")
+                    self.pontuacao += 1 #Aumenta a pontuação
+                else:
+                    print("Não é um par. Memorize as posições!")
+                    #pausa o jogo por 2 segundos para o jogador memorizar as cartas
+                    time.sleep(2)
+                    #esconde as cartas novamente, pois não eram um par
+                    c1.esconder()
+                    c2.esconder()
+                #limpa a lista de cartas da rodada para preparar para a proxima rodada
                             
-                    #mensagem final quando o loop termina
-                    print("\nParabén! Voce encontrou todos os pares e completou o jogo!")
+            #mensagem final quando o loop termina
+            print("\nParabén! Voce encontrou todos os pares e completou o jogo!")
