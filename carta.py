@@ -9,7 +9,7 @@ class Carta:
       self.virada = True
 
    def esconder(self):
-      #metodo para esconder a carta (mostrar 'x')
+      #metodo para esconder a carta (mostrar '🂱')
       self.virada = False
 
    def mostrar(self):
