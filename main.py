@@ -6,7 +6,7 @@ def main():
     print("Bem-vindo ao Jogo da Memória!")
     jogo.jogar() #chama o método 'jogar' para iniciar a partida
 
-#Verifica se o arquivo está sendo sendo executado diretamente, se sim chama a função main()
+#Verifica se o arquivo está sendo executado diretamente, se sim chama a função main()
 if __name__ == '__main__':
     main()   
 
