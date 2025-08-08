@@ -22,7 +22,7 @@ class JogoDaMemoria:
         #metodo para mostrar o estado atual do tabuleiro
         print("Tabuleiro:")
         for i, linha in enumerate(self.tabuleiro):
-             #converte cada carta da linha para sau representação visivel
+             #converte cada carta da linha para sua representação visivel
              linha_str = '  '.join([c.mostrar() for c in linha])
              print(f"{i+1} {linha_str}")
         print()
