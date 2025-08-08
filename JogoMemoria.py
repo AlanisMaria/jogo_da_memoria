@@ -59,7 +59,3 @@ class JogoDaMemoria:
                 c2.esconder()
                 self.cartas_viradas.clear()
   
-        if len(self.cartas_viradas) == 16:
-            
-            print("Parabéns! Você ganhou!")
-    
